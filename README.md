@@ -1,5 +1,5 @@
-# friendly-client
-Friendly- MERN social app
+# friendly (client)
+friendly- MERN social app
 
 LIVE DEMO:
 https://friendly-client.onrender.com/home
