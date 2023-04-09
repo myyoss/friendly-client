@@ -7,7 +7,6 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
-  const [mapByDate, setMapByDate] = useState([]);
   
   const getPosts = async () => {
     const response = await fetch("https://friendly-server.onrender.com/posts", {
@@ -16,14 +15,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     });
     const data = await response.json();
 
-    const mapDataByNewPostFirst = data
-      .slice(0)
-      .reverse()
-      .map((element) => {
-        return element;
-      });
-    setMapByDate(mapDataByNewPostFirst);
-    dispatch(setPosts({ posts: mapDataByNewPostFirst }));
+    dispatch(setPosts({ posts: data }));
   };
 
   const getUserPosts = async () => {
@@ -36,14 +28,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     );
     const data = await response.json();
 
-    const mapDataByNewPostFirst = data
-      .slice(0)
-      .reverse()
-      .map((element) => {
-        return element;
-      });
-    setMapByDate(mapDataByNewPostFirst);
-    dispatch(setPosts({ posts: mapDataByNewPostFirst }));
+    dispatch(setPosts({ posts: data }));
   };
 
   useEffect(() => {
@@ -56,7 +41,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   return (
     <>
-      {mapByDate.map(
+      {posts.map(
         ({
           _id,
           userId,

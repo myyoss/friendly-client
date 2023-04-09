@@ -6,7 +6,6 @@ import MyPostWidget from "../widgets/MyPostWidget";
 import PostsWidget from "../widgets/PostsWidget";
 import AdvertWidget from "../widgets/AdvertWidget";
 import AdvertWidget2 from "../widgets/AdvertWidget2"
-
 import FriendListWidget from "../widgets/FriendListWidget";
 
 const HomePage = () => {
@@ -32,7 +31,7 @@ const HomePage = () => {
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          <MyPostWidget picturePath={picturePath} />
+          <MyPostWidget picturePath={picturePath}/>
           <PostsWidget userId={_id} />
         </Box>
         {isNonMobileScreens && (
