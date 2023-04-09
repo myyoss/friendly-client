@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../../state";
 import PostWidget from "./PostWidget";
@@ -14,7 +14,16 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
-    dispatch(setPosts({ posts: data }));
+
+    const mapDataByNewPostFirst = data
+    .slice(0)
+    .reverse()
+    .map(element => {
+      return element;
+    });
+
+    dispatch(setPosts({ posts: mapDataByNewPostFirst }));
+
   };
 
   const getUserPosts = async () => {
@@ -26,7 +35,15 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       }
     );
     const data = await response.json();
-    dispatch(setPosts({ posts: data }));
+
+    const mapDataByNewPostFirst = data
+    .slice(0)
+    .reverse()
+    .map(element => {
+      return element;
+    });
+
+    dispatch(setPosts({ posts: mapDataByNewPostFirst }));
   };
 
   useEffect(() => {
