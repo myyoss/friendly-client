@@ -1,4 +1,4 @@
-import { useEffect} from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../../state";
 import PostWidget from "./PostWidget";
@@ -7,7 +7,8 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
-
+  const [mapByDate, setMapByDate] = useState([]);
+  
   const getPosts = async () => {
     const response = await fetch("https://friendly-server.onrender.com/posts", {
       method: "GET",
@@ -16,14 +17,13 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     const data = await response.json();
 
     const mapDataByNewPostFirst = data
-    .slice(0)
-    .reverse()
-    .map(element => {
-      return element;
-    });
-
+      .slice(0)
+      .reverse()
+      .map((element) => {
+        return element;
+      });
+    setMapByDate(mapDataByNewPostFirst);
     dispatch(setPosts({ posts: mapDataByNewPostFirst }));
-
   };
 
   const getUserPosts = async () => {
@@ -37,12 +37,12 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     const data = await response.json();
 
     const mapDataByNewPostFirst = data
-    .slice(0)
-    .reverse()
-    .map(element => {
-      return element;
-    });
-
+      .slice(0)
+      .reverse()
+      .map((element) => {
+        return element;
+      });
+    setMapByDate(mapDataByNewPostFirst);
     dispatch(setPosts({ posts: mapDataByNewPostFirst }));
   };
 
@@ -56,7 +56,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   return (
     <>
-      {posts.map(
+      {mapByDate.map(
         ({
           _id,
           userId,
