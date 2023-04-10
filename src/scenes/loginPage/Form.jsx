@@ -79,11 +79,14 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("https://friendly-server.onrender.com/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
+    const loggedInResponse = await fetch(
+      "https://friendly-server.onrender.com/auth/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      }
+    );
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
     if (loggedIn) {
@@ -100,6 +103,10 @@ const Form = () => {
   const handleFormSubmit = async (values, onSubmitProps) => {
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
+  };
+
+  const fileSizeValidator = () => {
+    window.alert("size-too-large");
   };
 
   return (
@@ -181,7 +188,10 @@ const Form = () => {
                 >
                   <Dropzone
                     acceptedFiles=".jpg,.jpeg,.png"
+                    minSize={0}
+                    maxSize={1000000}
                     multiple={false}
+                    onDropRejected={fileSizeValidator}
                     onDrop={(acceptedFiles) =>
                       setFieldValue("picture", acceptedFiles[0])
                     }
@@ -195,7 +205,7 @@ const Form = () => {
                       >
                         <input {...getInputProps()} />
                         {!values.picture ? (
-                          <p>Add Picture Here</p>
+                          <p>Add Picture Here (Less Than 1Mb)</p>
                         ) : (
                           <FlexBetween>
                             <Typography>{values.picture.name}</Typography>

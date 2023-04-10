@@ -58,6 +58,10 @@ const MyPostWidget = ({ picturePath }) => {
     window.location.reload();
   };
 
+  const fileSizeValidator = () => {
+    window.alert("size-too-large");
+  };
+
   return (
     <WidgetWrapper>
       <FlexBetween gap="1.5rem">
@@ -83,7 +87,10 @@ const MyPostWidget = ({ picturePath }) => {
         >
           <Dropzone
             acceptedFiles=".jpg,.jpeg,.png"
+            minSize={0}
+            maxSize={1000000}
             multiple={false}
+            onDropRejected={fileSizeValidator}
             onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
           >
             {({ getRootProps, getInputProps }) => (
@@ -97,7 +104,7 @@ const MyPostWidget = ({ picturePath }) => {
                 >
                   <input {...getInputProps()} />
                   {!image ? (
-                    <p>Add Image Here</p>
+                    <p>Add Image Here (Less Than 1Mb)</p>
                   ) : (
                     <FlexBetween>
                       <Typography>{image.name}</Typography>
