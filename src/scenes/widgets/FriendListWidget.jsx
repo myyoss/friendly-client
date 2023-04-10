@@ -9,7 +9,7 @@ import { setFriends } from "../../state";
 const FriendListWidget = ({ userId }) => {
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
-  console.log("data",friends)
+
   const dispatch = useDispatch();
   const { palette } = useTheme();
 
